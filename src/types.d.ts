@@ -6,4 +6,5 @@ export interface IProps {
   appVersion: string;
   podIp: string;
   env: string;
+  api: string;
 }

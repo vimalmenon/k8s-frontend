@@ -1,4 +1,6 @@
 
+
+import React from "react";
 import { IProps } from "../types";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,21 +12,42 @@ import Paper from '@mui/material/Paper';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 
 
-const CheckEmptyValue: React.FC<{ value: string }> = ({ value }) => {
+const checkEmptyValue = (value: string | undefined): boolean => {
   if (!value) {
-    return <DoNotDisturbIcon sx={{ color: "red" }} />;
+    return false;
   }
   if (value === "") {
-    return <DoNotDisturbIcon sx={{ color: "red" }} />;
+    return false;
   }
   if (value === "None") {
-    return <DoNotDisturbIcon sx={{ color: "red" }} />;
+    return false;
   }
-  return <span>{value}</span>;
+  return true;
+}
+const CheckEmptyValue: React.FC<{ value: string | undefined }> = ({ value }) => {
+  if (checkEmptyValue(value)) {
+    return <span>{value}</span>;
+  }
+  return <DoNotDisturbIcon sx={{ color: "red" }} />;
 }
 
 
 export const App: React.FC<IProps> = (props) => {
+  const [flavor, setFlavor] = React.useState<string>()
+  const getApiData = async (api: string) => {
+    try {
+      const value = await fetch(api);
+      const data = await value.json();
+      setFlavor(data.appFlavor)
+    } catch (error) {
+      console.log(error)
+    }
+  };
+  React.useEffect(() => {
+    if (checkEmptyValue(props.api)) {
+      getApiData(props.api);
+    }
+  }, [])
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -35,6 +58,12 @@ export const App: React.FC<IProps> = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
+          <TableRow>
+            <TableCell>Env</TableCell>
+            <TableCell  >
+              <CheckEmptyValue value={props.env} />
+            </TableCell>
+          </TableRow>
           <TableRow>
             <TableCell>App Name</TableCell>
             <TableCell  >
@@ -71,9 +100,15 @@ export const App: React.FC<IProps> = (props) => {
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Env</TableCell>
+            <TableCell>API</TableCell>
             <TableCell  >
-              <CheckEmptyValue value={props.env} />
+              <CheckEmptyValue value={props.api} />
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Flavor</TableCell>
+            <TableCell  >
+              <CheckEmptyValue value={flavor} />
             </TableCell>
           </TableRow>
         </TableBody>
