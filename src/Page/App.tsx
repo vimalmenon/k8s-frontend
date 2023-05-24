@@ -10,6 +10,20 @@ import Paper from '@mui/material/Paper';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 
 
+const CheckEmptyValue: React.FC<{ value: string }> = ({ value }) => {
+  if (!value) {
+    return <DoNotDisturbIcon sx={{ color: "red" }} />;
+  }
+  if (value === "") {
+    return <DoNotDisturbIcon sx={{ color: "red" }} />;
+  }
+  if (value === "None") {
+    return <DoNotDisturbIcon sx={{ color: "red" }} />;
+  }
+  return <span>{value}</span>;
+}
+
+
 export const App: React.FC<IProps> = (props) => {
   return (
     <TableContainer component={Paper}>
@@ -23,27 +37,44 @@ export const App: React.FC<IProps> = (props) => {
         <TableBody>
           <TableRow>
             <TableCell>App Name</TableCell>
-            <TableCell  >{props.appName || <DoNotDisturbIcon sx={{ color: "red" }} />}</TableCell>
+            <TableCell  >
+              <CheckEmptyValue value={props.appName} />
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>App Version</TableCell>
+            <TableCell  ><CheckEmptyValue value={props.appVersion} />
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Node Name</TableCell>
-            <TableCell  >{props.nodeName || <DoNotDisturbIcon sx={{ color: "red" }} />}</TableCell>
+            <TableCell  >
+              <CheckEmptyValue value={props.nodeName} />
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Pod Name</TableCell>
-            <TableCell  >{props.podName || <DoNotDisturbIcon sx={{ color: "red" }} />}</TableCell>
+            <TableCell  >
+              <CheckEmptyValue value={props.podName} />
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Pod Namespace</TableCell>
-            <TableCell  >{props.podNamespace || <DoNotDisturbIcon sx={{ color: "red" }} />}</TableCell>
+            <TableCell  >
+              <CheckEmptyValue value={props.podNamespace} />
+            </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>POD IP</TableCell>
-            <TableCell  >{props.podIp || <DoNotDisturbIcon sx={{ color: "red" }} />}</TableCell>
+            <TableCell>Pod IP</TableCell>
+            <TableCell  >
+              <CheckEmptyValue value={props.podIp} />
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Env</TableCell>
-            <TableCell  >{props.env || <DoNotDisturbIcon sx={{ color: "red" }} />}</TableCell>
+            <TableCell  >
+              <CheckEmptyValue value={props.env} />
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

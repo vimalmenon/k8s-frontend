@@ -3,6 +3,7 @@ export interface IProps {
   nodeName: string;
   podName: string;
   podNamespace: string;
+  appVersion: string;
   podIp: string;
   env: string;
 }
