@@ -91,7 +91,7 @@ export const ApiHistory: React.FC<IValue> = ({ value }) => {
   }, [])
 
   if (checkEmptyValue(value) && value) {
-    return (<Box sx={{ display: "flex", flex: "2 2 100%", flexWrap: "wrap", gap: 0.5, margin: "1em", justifyContent: "space-evenly", maxHeight: "500px", overflow: "scroll" }}>
+    return (<Box sx={{ display: "flex", flex: "2 2 100%", flexWrap: "wrap", gap: 0.5, margin: "1em 0", justifyContent: "space-evenly", maxHeight: "500px", overflow: "scroll" }}>
       {flavors.map((flavor, key) => {
         return (
           <ApiItem {...flavor} key={key} />
