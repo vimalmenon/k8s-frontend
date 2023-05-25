@@ -19,4 +19,5 @@ export interface IApiResponse {
   podName: string;
   podIp: string;
   date: string;
+  status: "error" | "success"
 }

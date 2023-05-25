@@ -15,69 +15,75 @@ export const checkEmptyValue = (value: string | undefined): boolean => {
   return true;
 }
 
-const tableValue = 60;
-
-export const ApiItem: React.FC<IApiResponse> = ({ appFlavor, nodeName, podName, podIp, date }) => {
+export const ApiItem: React.FC<IApiResponse> = ({ appFlavor, nodeName, podName, podIp, date, status }) => {
   return (
     <Box sx={{ display: "flex", flex: "0 0 48%", background: appFlavor, padding: 2, flexDirection: "column", gap: 2, color: "white" }}>
-      <Box sx={{ display: "flex", flex: "1" }}>
-        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
-          Time
-        </Box>
-        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
-          {date}
-        </Box>
-      </Box>
-      <Box sx={{ display: "flex", flex: "1" }}>
-        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
-          Node Name
-        </Box>
-        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
-          {nodeName}
-        </Box>
-      </Box>
-      <Box sx={{ display: "flex", flex: "1" }}>
-        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
-          Pod Name
-        </Box>
-        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
-          {podName}
-        </Box>
-      </Box>
-      <Box sx={{ display: "flex", flex: "1" }}>
-        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
-          Pod IP
-        </Box>
-        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
-          {podIp}
-        </Box>
-      </Box>
+      {status === "success" ?
+        <>
+          <Box sx={{ display: "flex", flex: "1" }}>
+            <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+              Time
+            </Box>
+            <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+              {date}
+            </Box>
+          </Box>
+          <Box sx={{ display: "flex", flex: "1" }}>
+            <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+              Node Name
+            </Box>
+            <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+              {nodeName}
+            </Box>
+          </Box>
+          <Box sx={{ display: "flex", flex: "1" }}>
+            <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+              Pod Name
+            </Box>
+            <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+              {podName}
+            </Box>
+          </Box>
+          <Box sx={{ display: "flex", flex: "1" }}>
+            <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+              Pod IP
+            </Box>
+            <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+              {podIp}
+            </Box>
+          </Box></> : <Box sx={{ display: "flex", flex: "1" }}>API Error : API call made at {date} </Box>}
     </Box>
   );
 }
 
 export const ApiHistory: React.FC<IValue> = ({ value }) => {
   const [flavors, setFlavors] = React.useState<IApiResponse[]>([]);
-  const getApiData = async (api: string, index: number) => {
+  const getApiData = async (api: string) => {
     try {
       const value = await fetch(api);
       const result = await value.json();
       setFlavors((data) => {
-        return [result, ...data]
+        return [{ ...result, status: "success" }, ...data]
       })
     } catch (error) {
-      // setFlavors((data) => {
-      //   const newData = [...data];
-      //   newData[index] = "red";
-      //   return newData;
-      // })
+      const d = new Date();
+      setFlavors((data) => {
+        return [{
+          appFlavor: "red",
+          nodeName: "",
+          podName: "",
+          podIp: "",
+          date: d.toLocaleString(),
+          status: "error"
+        }, ...data]
+      })
     }
   };
   React.useEffect(() => {
     let index = 0;
     const data = setInterval(() => {
       if (checkEmptyValue(value) && value) {
-        getApiData(value, index % tableValue);
+        getApiData(value);
         index++;
       }
     }, 1000);
