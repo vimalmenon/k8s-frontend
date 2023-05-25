@@ -16,7 +16,7 @@ export const Layout: React.FC<any> = ({ children }) => {
         <CssBaseline />
         <Header />
         <Box sx={{ height: "65px", background: "orange" }} />
-        <Box sx={{ display: 'flex', flex: 1 }}>
+        <Box sx={{ display: 'flex', flex: 1, overflow: "scroll" }}>
           <Container maxWidth="lg" sx={{ marginTop: "2em" }}>
             <section>{children}</section>
           </Container>

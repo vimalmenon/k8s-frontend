@@ -26,14 +26,21 @@ export const App: React.FC<IProps> = (props) => {
   const [show, setShow] = React.useState<boolean>(false);
   return (
     <Box sx={{ display: "flex", flex: "1 1 100%", flexDirection: "column" }}>
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={show}
-            onClick={() => setShow(!show)} />}
-        label={show ? "Show all" : "Hide empty values"} />
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell colSpan={2}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={show}
+                      onClick={() => setShow(!show)} />}
+                  label={show ?"Hide empty values" : "Show all" } />
+
+              </TableCell>
+            </TableRow>
+          </TableHead>
           <TableHead>
             <TableRow>
               <TableCell sx={{ width: "40%" }}>Environment</TableCell>

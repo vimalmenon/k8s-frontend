@@ -1,7 +1,6 @@
 import React from "react";
 import Box from '@mui/material/Box';
-import { IValue } from "../types";
-import { styled } from '@mui/material/styles';
+import { IValue, IApiResponse } from "../types";
 
 export const checkEmptyValue = (value: string | undefined): boolean => {
   if (!value) {
@@ -18,29 +17,62 @@ export const checkEmptyValue = (value: string | undefined): boolean => {
 
 const tableValue = 60;
 
+export const ApiItem: React.FC<IApiResponse> = ({ appFlavor, nodeName, podName, podIp, date }) => {
+  return (
+    <Box sx={{ display: "flex", flex: "0 0 48%", background: appFlavor, padding: 2, flexDirection: "column", gap: 2, color: "white" }}>
+      <Box sx={{ display: "flex", flex: "1" }}>
+        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+          Time
+        </Box>
+        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+          {date}
+        </Box>
+      </Box>
+      <Box sx={{ display: "flex", flex: "1" }}>
+        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+          Node Name
+        </Box>
+        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+          {nodeName}
+        </Box>
+      </Box>
+      <Box sx={{ display: "flex", flex: "1" }}>
+        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+          Pod Name
+        </Box>
+        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+          {podName}
+        </Box>
+      </Box>
+      <Box sx={{ display: "flex", flex: "1" }}>
+        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+          Pod IP
+        </Box>
+        <Box sx={{ display: "flex", flex: "0 0 50%" }}>
+          {podIp}
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
 export const ApiHistory: React.FC<IValue> = ({ value }) => {
-  const [flavors, setFlavors] = React.useState<string[]>([]);
+  const [flavors, setFlavors] = React.useState<IApiResponse[]>([]);
   const getApiData = async (api: string, index: number) => {
     try {
       const value = await fetch(api);
       const result = await value.json();
       setFlavors((data) => {
-        const newData = [...data];
-        newData[index] = result.appFlavor;
-        return newData;
+        return [result, ...data]
       })
     } catch (error) {
-      setFlavors((data) => {
-        const newData = [...data];
-        newData[index] = "red";
-        return newData;
-      })
+      // setFlavors((data) => {
+      //   const newData = [...data];
+      //   newData[index] = "red";
+      //   return newData;
+      // })
     }
   };
-  const makeEmptyTable = () => {
-    const value = Array.from({ length: tableValue }, (x, i) => "white")
-    setFlavors(value)
-  }
   React.useEffect(() => {
     let index = 0;
     const data = setInterval(() => {
@@ -49,14 +81,14 @@ export const ApiHistory: React.FC<IValue> = ({ value }) => {
         index++;
       }
     }, 1000);
-    makeEmptyTable()
     return () => clearInterval(data);
   }, [])
+
   if (checkEmptyValue(value) && value) {
-    return (<Box sx={{ display: "flex", flex: "1", flexWrap: "wrap", gap: 0.5, margin: "1em" }}>
+    return (<Box sx={{ display: "flex", flex: "2 2 100%", flexWrap: "wrap", gap: 0.5, margin: "1em", justifyContent: "space-evenly", maxHeight: "500px", overflow: "scroll" }}>
       {flavors.map((flavor, key) => {
         return (
-          <Box style={{ height: "50px", width: "50px", "border": "1px solid black", background: flavor }} key={key}></Box>
+          <ApiItem {...flavor} key={key} />
         )
       })}
     </Box>);

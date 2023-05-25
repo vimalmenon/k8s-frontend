@@ -12,3 +12,11 @@ export interface IProps {
 export interface IValue {
   value: string | undefined;
 }
+
+export interface IApiResponse {
+  appFlavor: string;
+  nodeName: string;
+  podName: string;
+  podIp: string;
+  date: string;
+}
