@@ -8,3 +8,7 @@ export interface IProps {
   env: string;
   api: string;
 }
+
+export interface IValue {
+  value: string | undefined;
+}
