@@ -23,69 +23,84 @@ const CheckEmptyValue: React.FC<IValue> = ({ value }) => {
 }
 
 export const App: React.FC<IProps> = (props) => {
+  const [show, setShow] = React.useState<boolean>(false);
   return (
     <Box sx={{ display: "flex", flex: "1 1 100%", flexDirection: "column" }}>
-      <FormControlLabel control={<Checkbox defaultChecked />} label="Show all" />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={show}
+            onClick={() => setShow(!show)} />}
+        label={show ? "Show all" : "Hide empty values"} />
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Environment</TableCell>
+              <TableCell sx={{ width: "40%" }}>Environment</TableCell>
               <TableCell>Value</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell>Env</TableCell>
-              <TableCell>
-                <CheckEmptyValue value={props.env} />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>App Name</TableCell>
-              <TableCell>
-                <CheckEmptyValue value={props.appName} />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>App Version</TableCell>
-              <TableCell><CheckEmptyValue value={props.appVersion} />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Node Name</TableCell>
-              <TableCell>
-                <CheckEmptyValue value={props.nodeName} />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Pod Name</TableCell>
-              <TableCell>
-                <CheckEmptyValue value={props.podName} />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Pod Namespace</TableCell>
-              <TableCell>
-                <CheckEmptyValue value={props.podNamespace} />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Pod IP</TableCell>
-              <TableCell>
-                <CheckEmptyValue value={props.podIp} />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>API</TableCell>
-              <TableCell>
-                <CheckEmptyValue value={props.api} />
-              </TableCell>
-            </TableRow>
+            {checkEmptyValue(props.env) || show ?
+              <TableRow>
+                <TableCell>Env</TableCell>
+                <TableCell>
+                  <CheckEmptyValue value={props.env} />
+                </TableCell>
+              </TableRow> : null}
+            {checkEmptyValue(props.appName) || show ?
+              <TableRow>
+                <TableCell>App Name</TableCell>
+                <TableCell>
+                  <CheckEmptyValue value={props.appName} />
+                </TableCell>
+              </TableRow> : null
+            }
+            {checkEmptyValue(props.appVersion) || show ?
+              <TableRow>
+                <TableCell>App Version</TableCell>
+                <TableCell><CheckEmptyValue value={props.appVersion} />
+                </TableCell>
+              </TableRow> : null}
+            {checkEmptyValue(props.nodeName) || show ?
+              <TableRow>
+                <TableCell>Node Name</TableCell>
+                <TableCell>
+                  <CheckEmptyValue value={props.nodeName} />
+                </TableCell>
+              </TableRow> : null}
+            {checkEmptyValue(props.podName) || show ?
+              <TableRow>
+                <TableCell>Pod Name</TableCell>
+                <TableCell>
+                  <CheckEmptyValue value={props.podName} />
+                </TableCell>
+              </TableRow> : null}
+            {checkEmptyValue(props.podNamespace) || show ?
+              <TableRow>
+                <TableCell>Pod Namespace</TableCell>
+                <TableCell>
+                  <CheckEmptyValue value={props.podNamespace} />
+                </TableCell>
+              </TableRow> : null}
+            {checkEmptyValue(props.podIp) || show ?
+              <TableRow>
+                <TableCell>Pod IP</TableCell>
+                <TableCell>
+                  <CheckEmptyValue value={props.podIp} />
+                </TableCell>
+              </TableRow> : null}
+            {checkEmptyValue(props.api) || show ?
+              <TableRow>
+                <TableCell>API</TableCell>
+                <TableCell>
+                  <CheckEmptyValue value={props.api} />
+                </TableCell>
+              </TableRow> : null}
           </TableBody>
         </Table>
       </TableContainer>
-      <ApiHistory value={props.api} />
+      {checkEmptyValue(props.api) ? <ApiHistory value={props.api} /> : null}
     </Box>
   );
 }
