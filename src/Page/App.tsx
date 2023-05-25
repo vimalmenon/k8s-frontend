@@ -12,8 +12,8 @@ import Paper from '@mui/material/Paper';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import { ApiHistory, checkEmptyValue } from "./ApiHistory";
 import Box from '@mui/material/Box';
-
-
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const CheckEmptyValue: React.FC<IValue> = ({ value }) => {
   if (checkEmptyValue(value)) {
@@ -24,60 +24,61 @@ const CheckEmptyValue: React.FC<IValue> = ({ value }) => {
 
 export const App: React.FC<IProps> = (props) => {
   return (
-    <Box sx={{display: "flex", flex: "1 1 100%", flexDirection: "column"}}>
+    <Box sx={{ display: "flex", flex: "1 1 100%", flexDirection: "column" }}>
+      <FormControlLabel control={<Checkbox defaultChecked />} label="Show all" />
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Environment</TableCell>
-              <TableCell  >Value</TableCell>
+              <TableCell>Value</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell>Env</TableCell>
-              <TableCell  >
+              <TableCell>
                 <CheckEmptyValue value={props.env} />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>App Name</TableCell>
-              <TableCell  >
+              <TableCell>
                 <CheckEmptyValue value={props.appName} />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>App Version</TableCell>
-              <TableCell  ><CheckEmptyValue value={props.appVersion} />
+              <TableCell><CheckEmptyValue value={props.appVersion} />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Node Name</TableCell>
-              <TableCell  >
+              <TableCell>
                 <CheckEmptyValue value={props.nodeName} />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Pod Name</TableCell>
-              <TableCell  >
+              <TableCell>
                 <CheckEmptyValue value={props.podName} />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Pod Namespace</TableCell>
-              <TableCell  >
+              <TableCell>
                 <CheckEmptyValue value={props.podNamespace} />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Pod IP</TableCell>
-              <TableCell  >
+              <TableCell>
                 <CheckEmptyValue value={props.podIp} />
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>API</TableCell>
-              <TableCell  >
+              <TableCell>
                 <CheckEmptyValue value={props.api} />
               </TableCell>
             </TableRow>

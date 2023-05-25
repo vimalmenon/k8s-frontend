@@ -10,3 +10,5 @@ Accepted Environmental value
 | NEXT_PUBLIC_POD_NAME   | None |
 | NEXT_PUBLIC_POD_NAMESPACE   | None |
 | NEXT_PUBLIC_POD_IP   |  None  |
+| NEXT_PUBLIC_API   |  None  |
+

@@ -3,18 +3,6 @@ import Box from '@mui/material/Box';
 import { IValue } from "../types";
 import { styled } from '@mui/material/styles';
 
-const BoxStyle = styled("div")(({ theme }) => {
-  return {
-    display: "flex",
-    flex: "0 0 50px",
-    height: "50px",
-    border: "1px solid black",
-    "&:last-child": {
-      background: "red"
-    }
-  }
-})
-
 export const checkEmptyValue = (value: string | undefined): boolean => {
   if (!value) {
     return false;
@@ -27,6 +15,8 @@ export const checkEmptyValue = (value: string | undefined): boolean => {
   }
   return true;
 }
+
+const tableValue = 60;
 
 export const ApiHistory: React.FC<IValue> = ({ value }) => {
   const [flavors, setFlavors] = React.useState<string[]>([]);
@@ -48,14 +38,14 @@ export const ApiHistory: React.FC<IValue> = ({ value }) => {
     }
   };
   const makeEmptyTable = () => {
-    const value = Array.from({ length: 60 }, (x, i) => "white")
+    const value = Array.from({ length: tableValue }, (x, i) => "white")
     setFlavors(value)
   }
   React.useEffect(() => {
     let index = 0;
     const data = setInterval(() => {
       if (checkEmptyValue(value) && value) {
-        getApiData(value, index % 60);
+        getApiData(value, index % tableValue);
         index++;
       }
     }, 1000);
