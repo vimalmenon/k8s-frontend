@@ -1,4 +1,4 @@
-## K8S frontend
+## K8S Frontend App
 
 This is a frontend app build in NextJS. This App will be used in [Learn K8S](https://github.com/vimalmenon/k8s-learn) project
 
