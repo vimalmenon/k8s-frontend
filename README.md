@@ -1,7 +1,8 @@
-## K8S frontend learning
+## K8S frontend
 
-This is a frontend app build in NextJS. This App will be used for testing K8S
+This is a frontend app build in NextJS. This App will be used in [Learn K8S](https://github.com/vimalmenon/k8s-learn) project
 
+---
 ### Accepted Environmental value
 | Key |  Default Value  |
 |:-----|:--------:|
