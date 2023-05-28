@@ -2,7 +2,7 @@
 
 This is a frontend app build in NextJS. This App will be used for testing K8S
 
-Accepted Environmental value
+### Accepted Environmental value
 | Key |  Default Value  |
 |:-----|:--------:|
 | NEXT_PUBLIC_APP_NAME   | None |
@@ -12,3 +12,17 @@ Accepted Environmental value
 | NEXT_PUBLIC_POD_IP   |  None  |
 | NEXT_PUBLIC_API   |  None  |
 
+---
+### Pushing to Docker Hub
+Build an image with the latest tag
+```bash
+docker build -tag vimalsmenon/app-frontend:latest .
+```
+Docker Login with username and password
+```bash
+docker login
+```
+Docker push
+```bash
+docker push vimalsmenon/app-frontend:latest
+```
