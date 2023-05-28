@@ -14,7 +14,7 @@ This is a frontend app build in NextJS. This App is used in [Learn K8S](https://
 | NEXT_PUBLIC_API   |  None  |
 
 ---
-### Pushing to Docker Hub
+### Build Docker image and push to Docker Hub
 Build an image with the latest tag
 ```bash
 docker build -tag vimalsmenon/app-frontend:latest .
